@@ -15,6 +15,7 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
     $name = clean($_POST['name']);
     $email = clean($_POST['email']); 
     $gender = clean($_POST['gender'] ?? null); 
+    $skills = $_POST['skills'] ?? null; 
 
     if (empty($name)) {
         $errName = "Name Is Required";
@@ -34,7 +35,13 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
 
       if (empty($gender)){
         $errGender = "Please Select gender";
-      } 
+      }
+      
+      if  (empty($skills)){
+        $errSkills = "Please Select Skill";
+      } else {
+        $crrSkills = $skills;
+      }
 }
 ?>
 
@@ -47,7 +54,7 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Form Valiadition!</h1>
+    <h1 style="text-align:center">Form Valiadition!</h1>
 
        <div class="container">
         <div class="row min-vh-100 d-flex">
@@ -83,10 +90,46 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
                           <input type="radio" name="gender" id="female" value="Femail" class="form-check-input" <?= isset($gender) && $gender== "Femail" ? "checked": null ?>> 
                           <label for="female">Female</label>
                         </div>
-                        <div class=" form-check-inline <?= isset($errGender) ? 'text-danger' : (isset($gender) ? 'text-success' : null)?>">
+                        
+                    </div >
+                    <div class=" form-check-inline <?= isset($errGender) ? 'text-danger' : (isset($gender) ? 'text-success' : null)?>">
                           <?=  $errGender?? $gender ?? null?>
                         </div>
-                    </div >
+
+                    <div class=" py-3 border rounded mb-3 <?= isset ($errSkills) ? 'border-danger' : (isset($crrSkills) ? "border-success" : null)?>">
+                      <div class="form-check-inline form-check">
+                        Skill: 
+                      </div>
+                      <div class="form-check-inline form-check">
+                        <input type="checkbox" class="from-check-input" id="html" name="skills[]" value="HTML" <?= isset($crrSkills) && in_array("HTML", $crrSkills)? "checked" : null?>>
+                        <label for="html" class="form-check-label">HTML</label>
+                      </div>
+                      <div class="form-check-inline form-check">
+                        <input type="checkbox" class="from-check-input" id="css" name="skills[]" value="CSS" <?= isset($crrSkills) && in_array("CSS", $crrSkills)? "checked" : null?>>
+                        <label for="css" class="form-check-label">CSS</label>
+                      </div>
+                      <div class="form-check-inline form-check">
+                        <input type="checkbox" class="from-check-input" id="js" name="skills[]" value="JS" <?= isset($crrSkills) && in_array("JS", $crrSkills)? "checked" : null?>>
+                        <label for="js" class="form-check-label">JS</label>
+                      </div>
+                      <div class="form-check-inline form-check">
+                        <input type="checkbox" class="from-check-input" id="php" name="skills[]" value="PHP" <?= isset($crrSkills) && in_array("PHP", $crrSkills)? "checked" : null?>>
+                        <label for="php" class="form-check-label">PHP</label>
+                      </div>
+
+                    </div>
+                    <div class="mb-3 <?= isset($errSkills) ? 'text-danger' : (isset($skills) ? 'text-success' : null)?>">
+                      <?= $errSkills ?? null?>
+
+                      <?php
+                      if (isset($skills)) {
+                     foreach ($skills as $skills) {
+                      echo $skills . ",";
+                    }
+                  }
+                      
+                      ?>
+                    </div>
                     <input type="submit" value="Submit" class="btn btn-dark btn-sm" name="sub123">
 
 
