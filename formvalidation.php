@@ -14,6 +14,7 @@ function clean($data)
 if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
     $name = clean($_POST['name']);
     $email = clean($_POST['email']); 
+    $gender = clean($_POST['gender'] ?? null); 
 
     if (empty($name)) {
         $errName = "Name Is Required";
@@ -28,7 +29,12 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
     }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $errEmail = "Please enter a valid email"; 
         } else {
-            $crrEmail =$email;}
+            $crrEmail =$email;
+          }
+
+      if (empty($gender)){
+        $errGender = "Please Select gender";
+      } 
 }
 ?>
 
@@ -61,6 +67,26 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
                   <div class="valid-feedback"> <?= $crrEmail ?? null ?></div>
                   </div>
                     </div>
+                   
+                   
+                   
+                    <div class="mb-3 py-3 rounded border <?= isset($errGender) ? 'border-danger' :null ?> <?= isset($ender) ? 'border-success' :null ?> ">
+
+                  <div class="form-check-inline">
+                    <label for="" class="form-check-label form-check">Gender</label>
+                  </div>
+                        <div for="" class="form-check-inline ">
+                          <input type="radio" name="gender" id="mail" value="Mail" class="form-check-input" <?= isset($gender) && $gender== "Mail" ? "checked": null ?>> 
+                          <label for="mail">Male</label>
+                        </div>
+                        <div for="" class="form-check-inline ">
+                          <input type="radio" name="gender" id="female" value="Femail" class="form-check-input" <?= isset($gender) && $gender== "Femail" ? "checked": null ?>> 
+                          <label for="female">Female</label>
+                        </div>
+                        <div class=" form-check-inline <?= isset($errGender) ? 'text-danger' : (isset($gender) ? 'text-success' : null)?>">
+                          <?=  $errGender?? $gender ?? null?>
+                        </div>
+                    </div >
                     <input type="submit" value="Submit" class="btn btn-dark btn-sm" name="sub123">
 
 
