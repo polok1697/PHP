@@ -15,7 +15,8 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
     $name = clean($_POST['name']);
     $email = clean($_POST['email']); 
     $gender = clean($_POST['gender'] ?? null); 
-    $skills = $_POST['skills'] ?? null; 
+    $skills = $_POST['skills'] ?? null;
+    $division = clean($_POST['division'] ?? null); 
 
     if (empty($name)) {
         $errName = "Name Is Required";
@@ -41,6 +42,12 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
         $errSkills = "Please Select Skill";
       } else {
         $crrSkills = $skills;
+      }
+      
+      if (empty($division)){
+        $errDivision = "Please Select Division";
+      } else {
+        $crrDivision = $division;
       }
 }
 ?>
@@ -77,7 +84,7 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
                    
                    
                    
-                    <div class="mb-3 py-3 rounded border <?= isset($errGender) ? 'border-danger' :null ?> <?= isset($ender) ? 'border-success' :null ?> ">
+                    <div class=" py-3 rounded border <?= isset($errGender) ? 'border-danger' :null ?> <?= isset($ender) ? 'border-success' :null ?> ">
 
                   <div class="form-check-inline">
                     <label for="" class="form-check-label form-check">Gender</label>
@@ -92,11 +99,11 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
                         </div>
                         
                     </div >
-                    <div class=" form-check-inline <?= isset($errGender) ? 'text-danger' : (isset($gender) ? 'text-success' : null)?>">
+                    <div class=" mb-3 form-check-inline <?= isset($errGender) ? 'text-danger' : (isset($gender) ? 'text-success' : null)?>">
                           <?=  $errGender?? $gender ?? null?>
                         </div>
 
-                    <div class=" py-3 border rounded mb-3 <?= isset ($errSkills) ? 'border-danger' : (isset($crrSkills) ? "border-success" : null)?>">
+                    <div class=" py-3 border rounded <?= isset ($errSkills) ? 'border-danger' : (isset($crrSkills) ? "border-success" : null)?>">
                       <div class="form-check-inline form-check">
                         Skill: 
                       </div>
@@ -130,6 +137,31 @@ if (isset($_POST['sub123']) && $_SERVER ['REQUEST_METHOD'] == "POST") {
                       
                       ?>
                     </div>
+
+                    <div class=" p-3 rounded border <?= isset ($errDivision) ? 'border-danger' : (isset($crrDivision) ? "border-success" : null)?>">
+                      <label for="division">Select Option</label>
+                      <select name="division" id="division">
+                        <option value="">Select Division</option>
+                        <option value="Dhaka"<?= isset($crrDivision) && $crrDivision == 'Dhaka' ? 'selected' : null?>>Dhaka</option>
+                        <option value="Rajshahi">Rajshahi</option>
+                        <option value="Chitatagong">Chitatagong</option>
+                        <option value="Sylhet">Sylhet</option>
+                        <option value="Khulna">Khulna</option>
+                        <option value="Barishal">Barishal</option>
+                        <option value="Kumilla">Kumilla</option>
+                      </select>
+                    </div>
+                    <div class=" <?= isset($errDivision) ? 'text-danger' : (isset($crrDivision) ? 'text-success' : null)?> mb-3" >
+                  
+                  <?= $errDivision ?? null ?>
+                  <?= $division ?? null?>
+
+                  
+                  </div>
+                   
+                   
+                   
+                   
                     <input type="submit" value="Submit" class="btn btn-dark btn-sm" name="sub123">
 
 
